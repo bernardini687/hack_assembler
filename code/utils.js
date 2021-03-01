@@ -5,4 +5,6 @@ function valueOrInsert (obj, prop, val) {
   return obj[prop]
 }
 
-exports.valueOrInsert = valueOrInsert
+module.exports = {
+  valueOrInsert
+}

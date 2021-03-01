@@ -1,13 +1,13 @@
-const { valueOrInsert } = require('../code/utils')
+const { valueOrInsert } = require('./utils')
 
-test('returns the value when found', () => {
+test('return the value when found', () => {
   const obj = { foo: 1, bar: 2 }
   const val = valueOrInsert(obj, 'foo', 3)
 
   expect(val).toBe(1)
 })
 
-test('adds the value when not found', () => {
+test('add the value when not found', () => {
   const obj = { foo: 1, bar: 2 }
   const val = valueOrInsert(obj, 'baz', 3)
 
