@@ -9,5 +9,5 @@
 D=A
 @3
 D=D+A
-@0
+@0    // put the result in R0
 M=D
