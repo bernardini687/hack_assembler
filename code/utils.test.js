@@ -1,4 +1,4 @@
-const { valueOrInsert } = require('./utils')
+const { valueOrInsert, parseInstruction } = require('./utils')
 
 describe('valueOrInsert', () => {
   it('returns the value when found', () => {
@@ -17,33 +17,40 @@ describe('valueOrInsert', () => {
   })
 })
 
-// page 7 of 18
-// file:///Users/oscar/Downloads/44046b_b73759b866b249a0b3a715bf5a18f668.pdf
-
 describe('parseInstruction', () => {
+  function nullProtoObj (props) {
+    return Object.assign(Object.create(null), props)
+  }
+
   describe('without symbols', () => {
-    xit('parses a C instruction with dest into its components', () => {
-      const components = 'AM=M-1'
+    it('parses a C instruction with dest into its parts', () => {
+      const parts = parseInstruction('AM=M-1')
 
-      expect(components).toStrictEqual({ dest: 'AM', comp: 'M-1', jump: '' })
+      expect(parts).toStrictEqual(nullProtoObj({ dest: 'AM', comp: 'M-1' }))
     })
 
-    xit('parses a C instruction with jump into its components', () => {
-      const components = 'D;JGT'
+    it('parses a C instruction with jump into its parts', () => {
+      const parts = parseInstruction('D;JGT')
 
-      expect(components).toStrictEqual({ dest: '', comp: 'D', jump: 'JGT' })
+      expect(parts).toStrictEqual(nullProtoObj({ comp: 'D', jump: 'JGT' }))
     })
 
-    xit('parses a C instruction with dest and whitespace into its components', () => {
-      const components = '  D = D-M '
+    it('parses a C instruction with dest and whitespace into its parts', () => {
+      const parts = parseInstruction('  D = D-M ')
 
-      expect(components).toStrictEqual({ dest: 'D', comp: 'D-M', jump: '' })
+      expect(parts).toStrictEqual(nullProtoObj({ dest: 'D', comp: 'D-M' }))
     })
 
-    xit('parses a C instruction with jump and whitespace into its components', () => {
-      const components = '  0; JMP'
+    it('parses a C instruction with jump and whitespace into its parts', () => {
+      const parts = parseInstruction('  0; JMP')
 
-      expect(components).toStrictEqual({ dest: '', comp: '0', jump: 'JMP' })
+      expect(parts).toStrictEqual(nullProtoObj({ comp: '0', jump: 'JMP' }))
+    })
+
+    it('also handles a Buffer', () => {
+      const parts = parseInstruction(Buffer.from('AM = M-1'))
+
+      expect(parts).toStrictEqual(nullProtoObj({ dest: 'AM', comp: 'M-1' }))
     })
   })
 })
