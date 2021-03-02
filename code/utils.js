@@ -6,17 +6,15 @@ function valueOrInsert (obj, prop, val) {
 }
 
 function parseInstruction (instruction) {
-  let regexp
-
-  // '  D = P+M '.match(/\S/g) -> [ 'D', '=', 'P', '+', 'M' ]
+  let pattern
 
   if (instruction.includes('=')) {
-    regexp = /(?<dest>.+)=(?<comp>.+)/
+    pattern = /(?<dest>.+)=(?<comp>.+)/
   } else {
-    regexp = /(?<comp>.+);(?<jump>.+)/
+    pattern = /(?<comp>.+);(?<jump>.+)/
   }
 
-  const { groups } = instruction.toString().match(regexp)
+  const { groups } = instruction.toString().match(pattern)
 
   Object.keys(groups).forEach(k => { groups[k] = groups[k].trim() })
 
