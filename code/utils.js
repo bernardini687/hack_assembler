@@ -1,3 +1,5 @@
+const { COMPUTATIONS, DESTINATIONS, JUMPS } = require('../data/dictionary')
+
 function valueOrInsert (obj, prop, val) {
   if (!(prop in obj)) {
     obj[prop] = val
@@ -21,8 +23,8 @@ function parseInstruction (instruction) {
   return groups
 }
 
-function translateParts (parts) {
-
+function translateParts ({ comp, dest, jump }) {
+  return '111' + COMPUTATIONS[comp] + DESTINATIONS[dest] + JUMPS[jump]
 }
 
 module.exports = {
