@@ -21,7 +21,12 @@ function parseInstruction (instruction) {
   return groups
 }
 
+function translateParts (parts) {
+
+}
+
 module.exports = {
   valueOrInsert,
-  parseInstruction
+  parseInstruction,
+  translateParts
 }

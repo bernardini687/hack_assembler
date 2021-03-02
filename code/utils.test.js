@@ -1,4 +1,4 @@
-const { valueOrInsert, parseInstruction } = require('./utils')
+const { valueOrInsert, parseInstruction, translateParts } = require('./utils')
 
 describe('valueOrInsert', () => {
   it('returns the value when found', () => {
@@ -52,5 +52,26 @@ describe('parseInstruction', () => {
 
       expect(parts).toStrictEqual(nullProtoObj({ dest: 'AM', comp: 'M-1' }))
     })
+  })
+})
+
+describe('translateParts', () => {
+  xit('translates C parts with dest into binary', () => {
+    let binary = translateParts({ dest: 'D', comp: 'D-A' })
+    expect(binary).toBe('1110 0100 1101 0000'.trim())
+
+    binary = translateParts({ dest: 'M', comp: 'D+M' })
+    expect(binary).toBe('1111 0000 1000 1000'.trim())
+
+    binary = translateParts({ dest: 'M', comp: 'M+1' })
+    expect(binary).toBe('1111 1101 1100 1000'.trim())
+  })
+
+  xit('translates C parts with jump into binary', () => {
+    let binary = translateParts({ comp: 'D', jump: 'JGT' })
+    expect(binary).toBe('1110 0011 0000 0001'.trim())
+
+    binary = translateParts({ comp: '0', jump: 'JMP' })
+    expect(binary).toBe('1110 1010 1000 0111'.trim())
   })
 })
