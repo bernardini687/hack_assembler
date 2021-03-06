@@ -1,4 +1,7 @@
 /coverage
 /node_modules
-todo.txt
+/test/*
 tmp*
+todo.txt
+
+!/test/Test.asm
