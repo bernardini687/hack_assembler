@@ -5,11 +5,11 @@
     M=0   // sum = 0
 
 (LOOP)
-    @i    // if i>RAM[0] goto STOP
+    @i    // if i>RAM[0] goto init.stop
     D=M
     @R0
     D=D-M
-    @STOP
+    @init.stop
     D;JGT
     @i    // sum += 1
     D=M
@@ -19,7 +19,7 @@
     M=M+1
     @LOOP // goto LOOP
     0;JMP
-(STOP)
+(init.stop)
     @sum
     D=M
     @R1
